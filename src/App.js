@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import NavBar from "./components/navbar";
+import NavBar from "./components/navBar";
+import Products from "./components/products";
 
 class App extends Component {
   render() {
-    return <NavBar />;
+    return (
+      <React.Fragment>
+        <NavBar />
+        <Products />
+      </React.Fragment>
+    );
   }
 }
 
