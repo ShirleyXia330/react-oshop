@@ -20,14 +20,14 @@ const Pagination = ({
             key={page}
             className={page === selectedPage ? "page-item active" : "page-item"}
           >
-            <a
+            <button
               className="page-link"
               onClick={() => {
                 onPageSelect(page);
               }}
             >
               {page}
-            </a>
+            </button>
           </li>
         ))}
       </ul>

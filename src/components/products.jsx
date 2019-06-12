@@ -4,18 +4,19 @@ import ListGroup from "./shared/listGroup";
 import Pagination from "./shared/pagination";
 
 import _ from "lodash";
+import { Link } from "react-router-dom";
 
 class Products extends Component {
   state = {
     products: [
-      { name: "apple", category: "fruit" },
-      { name: "potato", category: "vegetable" },
-      { name: "banana", category: "fruit" },
-      { name: "eggplant", category: "vegetable" },
-      { name: "orange", category: "fruit" },
-      { name: "pumpkin", category: "vegetable" },
-      { name: "pineapple", category: "fruit" },
-      { name: "corn", category: "vegetable" }
+      { id: 1, name: "apple", category: "fruit" },
+      { id: 2, name: "potato", category: "vegetable" },
+      { id: 3, name: "banana", category: "fruit" },
+      { id: 4, name: "eggplant", category: "vegetable" },
+      { id: 5, name: "orange", category: "fruit" },
+      { id: 6, name: "pumpkin", category: "vegetable" },
+      { id: 7, name: "pineapple", category: "fruit" },
+      { id: 8, name: "corn", category: "vegetable" }
     ],
     categories: ["fruit", "vegetable"],
     selectedCategory: "",
@@ -62,7 +63,9 @@ class Products extends Component {
         </div>
         <div className="col">
           {paginatedProducts.map(p => (
-            <li key={p.name}>{p.name}</li>
+            <li key={p.name}>
+              <Link to={`/products/${p.id}`}>{p.name}</Link>
+            </li>
           ))}
           <Pagination
             productsCount={selectedProducts.length}
