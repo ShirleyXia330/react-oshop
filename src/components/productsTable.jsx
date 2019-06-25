@@ -1,0 +1,50 @@
+import React, { Component } from "react";
+
+import TableHeader from "./shared/tableHeader";
+import TableBody from "./shared/tableBody";
+import Like from "./shared/like";
+
+class ProductsTable extends Component {
+  columns = [
+    { path: "id" },
+    { path: "name" },
+    { path: "category" },
+    {
+      key: "like",
+      content: product => (
+        <Like
+          liked={product.liked}
+          onClick={() => this.props.onLike(product)}
+        />
+      )
+    },
+    {
+      key: "delete",
+      content: product => (
+        <button
+          className="btn btn-danger btn-sm"
+          onClick={() => this.props.onDelete(product.id)}
+        >
+          Delete
+        </button>
+      )
+    }
+  ];
+
+  render() {
+    const { products, onSort, selectedSort } = this.props;
+
+    return (
+      <table className="table">
+        <TableHeader
+          onSort={onSort}
+          selectedSort={selectedSort}
+          columns={this.columns}
+        />
+        <TableBody items={products} columns={this.columns} />
+      </table>
+    );
+  }
+}
+
+export default ProductsTable;
