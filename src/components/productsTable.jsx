@@ -4,10 +4,17 @@ import TableHeader from "./shared/tableHeader";
 import TableBody from "./shared/tableBody";
 import Like from "./shared/like";
 
+import { Link } from "react-router-dom";
+
 class ProductsTable extends Component {
   columns = [
     { path: "id" },
-    { path: "name" },
+    {
+      path: "name",
+      content: product => (
+        <Link to={`/products/${product.id}`}>{product.name}</Link>
+      )
+    },
     { path: "category" },
     {
       key: "like",

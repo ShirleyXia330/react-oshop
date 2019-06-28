@@ -7,14 +7,16 @@ import NavBar from "./components/navBar";
 import Products from "./components/products";
 import Product from "./components/product";
 import NotFound from "./components/notFound";
+import LoginForm from "./components/shared/loginForm";
 
 class App extends Component {
   render() {
     return (
       <React.Fragment>
         <NavBar />
-        <div className="content">
+        <div className="content" style={{ margin: "20px" }}>
           <Switch>
+            <Route path="/login" component={LoginForm} />
             <Route path="/products/:id" component={Product} />
             <Route
               path="/products"
