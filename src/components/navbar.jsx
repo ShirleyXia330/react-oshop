@@ -22,7 +22,7 @@ const NavBar = () => {
               </Link>
             </li>
           </ul>
-          <Link className="btn btn-outline-success m-2 " to="/login">
+          <Link className="btn btn-outline-success mx-3 " to="/login">
             Login
           </Link>
         </div>

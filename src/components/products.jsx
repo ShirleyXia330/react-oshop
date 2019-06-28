@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import ListGroup from "./shared/listGroup";
 import Pagination from "./shared/pagination";
 import ProductsTable from "./productsTable";
+import SearchInput from "./searchInput";
 
 import _ from "lodash";
 
@@ -22,13 +23,19 @@ class Products extends Component {
     selectedCategory: "All",
     pageSize: 5,
     selectedPage: 1,
-    selectedSort: { path: "name", order: "asc" }
+    selectedSort: { path: "name", order: "asc" },
+    searcQuery: ""
   };
 
   handleCategorySelect = category => {
     if (this.state.selectedCategory === category)
       this.setState({ selectedCategory: "All", selectedPage: 1 });
-    else this.setState({ selectedCategory: category, selectedPage: 1 });
+    else
+      this.setState({
+        selectedCategory: category,
+        selectedPage: 1,
+        searcQuery: ""
+      });
   };
 
   handlePageSelect = page => {
@@ -49,7 +56,6 @@ class Products extends Component {
   handleDelete = id => {
     const products = this.state.products.filter(p => p.id !== id);
     this.setState({ products });
-    // console.log("Delete:", this.state.products);
   };
 
   handleLike = product => {
@@ -60,6 +66,14 @@ class Products extends Component {
     this.setState({ products });
   };
 
+  handleSearch = query => {
+    this.setState({
+      searcQuery: query.trim(),
+      selectedCategory: "All",
+      selectedPage: 1
+    });
+  };
+
   conditionalRender(count) {
     if (count === 0) return <p>There is no product.</p>;
     if (count === 1) return <p>There is one product.</p>;
@@ -67,22 +81,37 @@ class Products extends Component {
   }
 
   render() {
-    const selectedProducts =
-      this.state.selectedCategory === "All"
-        ? this.state.products
-        : this.state.products.filter(
-            p => p.category === this.state.selectedCategory
-          );
+    const {
+      selectedCategory,
+      products,
+      selectedSort,
+      pageSize,
+      selectedPage,
+      categories,
+      searcQuery
+    } = this.state;
+
+    let selectedProducts = {};
+    if (searcQuery) {
+      selectedProducts = products.filter(p =>
+        p.name.toLowerCase().startsWith(searcQuery.toLowerCase())
+      );
+    } else {
+      selectedProducts =
+        selectedCategory === "All"
+          ? products
+          : products.filter(p => p.category === selectedCategory);
+    }
 
     const sortedProducts = _.orderBy(
       selectedProducts,
-      [this.state.selectedSort.path],
-      [this.state.selectedSort.order]
+      [selectedSort.path],
+      [selectedSort.order]
     );
 
     const paginatedProducts = this.handlePaginate(
-      this.state.pageSize,
-      this.state.selectedPage,
+      pageSize,
+      selectedPage,
       sortedProducts
     );
 
@@ -90,24 +119,25 @@ class Products extends Component {
       <div className="row">
         <div className="col-3">
           <ListGroup
-            categories={this.state.categories}
-            selectedCategory={this.state.selectedCategory}
+            categories={categories}
+            selectedCategory={selectedCategory}
             onCategorySelect={this.handleCategorySelect}
           />
         </div>
         <div className="col">
           {this.conditionalRender(selectedProducts.length)}
+          <SearchInput onChange={this.handleSearch} />
           <ProductsTable
             products={paginatedProducts}
             onLike={this.handleLike}
             onDelete={this.handleDelete}
             onSort={this.handleSortSelect}
-            selectedSort={this.state.selectedSort}
+            selectedSort={selectedSort}
           />
           <Pagination
             productsCount={selectedProducts.length}
-            pageSize={this.state.pageSize}
-            selectedPage={this.state.selectedPage}
+            pageSize={pageSize}
+            selectedPage={selectedPage}
             onPageSelect={this.handlePageSelect}
           />
         </div>
