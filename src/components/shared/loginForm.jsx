@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import FormInput from "./formInput";
 
 import Joi from "joi-browser";
+import axios from "axios";
 
 class LoginForm extends Component {
   state = { account: { username: "", password: "" }, errors: {} };
@@ -36,6 +37,14 @@ class LoginForm extends Component {
     e.preventDefault();
 
     console.log(this.state.account, this.state.errors);
+
+    const serverport = {
+      username: this.state.account.username,
+      password: this.state.account.password
+    };
+    axios
+      .post("http://localhost:4000/serverport/add", serverport)
+      .then(res => console.log(res.data));
   };
 
   handleChange = e => {
@@ -54,10 +63,27 @@ class LoginForm extends Component {
     this.setState({ account, errors });
   };
 
+  handleTest = () => {
+    axios
+      .get("http://localhost:4000/serverport")
+      .then(response => {
+        const account = { ...this.state.account };
+        account.username = response.data[0].username;
+        account.password = response.data[0].password;
+        this.setState({ account });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+
   render() {
     return (
       <div>
-        <h1>Login</h1>
+        <h1>Login</h1>{" "}
+        <button className="btn btn-primary" onClick={this.handleTest}>
+          Get
+        </button>
         <form onSubmit={this.handleSubmit}>
           <FormInput
             id="username"
