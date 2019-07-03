@@ -12,7 +12,9 @@ const bodyParser = require("body-parser");
 const PORT = 4000;
 const cors = require("cors");
 const config = require("./db");
-const ServerPortRouter = require("./serverPortRouter");
+const userRouter = require("./routes/userRouter");
+const categoryRouter = require("./routes/categoryRouter");
+const productRouter = require("./routes/productRouter");
 
 mongoose.connect(config.DB).then(
   () => {
@@ -27,7 +29,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use("/serverport", ServerPortRouter);
+app.use("/users", userRouter);
+app.use("/categories", categoryRouter);
+app.use("/products", productRouter);
 
 app.listen(PORT, function() {
   console.log("Server is running on Port: ", PORT);

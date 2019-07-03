@@ -6,6 +6,7 @@ import ProductsTable from "./productsTable";
 import SearchInput from "./searchInput";
 
 import _ from "lodash";
+import { Link } from "react-router-dom";
 
 class Products extends Component {
   state = {
@@ -125,6 +126,13 @@ class Products extends Component {
           />
         </div>
         <div className="col">
+          <Link
+            to="/products/new"
+            className="btn btn-primary"
+            style={{ marginBottom: 20 }}
+          >
+            New Product
+          </Link>
           {this.conditionalRender(selectedProducts.length)}
           <SearchInput onChange={this.handleSearch} />
           <ProductsTable

@@ -38,12 +38,12 @@ class LoginForm extends Component {
 
     console.log(this.state.account, this.state.errors);
 
-    const serverport = {
+    const user = {
       username: this.state.account.username,
       password: this.state.account.password
     };
     axios
-      .post("http://localhost:4000/serverport/add", serverport)
+      .post("http://localhost:4000/users/add", user)
       .then(res => console.log(res.data));
   };
 
@@ -65,7 +65,7 @@ class LoginForm extends Component {
 
   handleTest = () => {
     axios
-      .get("http://localhost:4000/serverport")
+      .get("http://localhost:4000/users")
       .then(response => {
         const account = { ...this.state.account };
         account.username = response.data[0].username;
@@ -87,6 +87,7 @@ class LoginForm extends Component {
         <form onSubmit={this.handleSubmit}>
           <FormInput
             id="username"
+            name="Username"
             autoFocus={true}
             onChange={this.handleChange}
             value={this.state.account.username}
@@ -94,6 +95,7 @@ class LoginForm extends Component {
           />
           <FormInput
             id="password"
+            name="Password"
             onChange={this.handleChange}
             value={this.state.account.password}
             error={this.state.errors.password}
