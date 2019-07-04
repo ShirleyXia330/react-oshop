@@ -4,6 +4,7 @@ import ListGroup from "./shared/listGroup";
 import Pagination from "./shared/pagination";
 import ProductsTable from "./productsTable";
 import SearchInput from "./searchInput";
+import { getProduct } from "../services/productService";
 
 import _ from "lodash";
 import { Link } from "react-router-dom";

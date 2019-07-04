@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 class ProductsTable extends Component {
   columns = [
-    { path: "id" },
+    // { path: "id" },
     {
       path: "name",
       content: product => (
@@ -16,6 +16,8 @@ class ProductsTable extends Component {
       )
     },
     { path: "category" },
+    { path: "price" },
+    { path: "number in stock" },
     {
       key: "like",
       content: product => (

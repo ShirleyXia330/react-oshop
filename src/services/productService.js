@@ -13,5 +13,5 @@ export function saveProduct(product) {
     return axios.put(url + "/" + product._id, data);
   }
 
-  return axios.post(url + "/add", product);
+  return axios.post(url + "/", product);
 }

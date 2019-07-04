@@ -43,7 +43,7 @@ class LoginForm extends Component {
       password: this.state.account.password
     };
     axios
-      .post("http://localhost:4000/users/add", user)
+      .post("http://localhost:4000/users", user)
       .then(res => console.log(res.data));
   };
 

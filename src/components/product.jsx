@@ -3,9 +3,9 @@ import React, { Component } from "react";
 import FormInput from "./shared/formInput";
 import FormSelect from "./shared/formSelect";
 import { getCategories } from "../services/categoryService";
+import { getProduct, saveProduct } from "../services/productService";
 
 import Joi from "joi-browser";
-import { getProduct, saveProduct } from "../services/productService";
 
 class Product extends Component {
   state = {
@@ -39,17 +39,21 @@ class Product extends Component {
     const { data: categories } = await getCategories();
     this.setState({ categories });
 
-    if (this.props.match.params.id === "new") return;
-    const data = await getProduct(this.props.match.params.id);
-    console.log(data);
-    // this.setState({ data });
+    try {
+      if (this.props.match.params.id === "new") return;
+      const { data } = await getProduct(this.props.match.params.id);
+      this.setState({ data });
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404)
+        this.props.history.replace("/not-found");
+    }
   }
 
   handleSubmit = e => {
     e.preventDefault();
 
-    saveProduct(this.state.data);
-    // this.props.history.push("/products");
+    saveProduct(this.state.data).then(res => console.log(res.data));
+    this.props.history.push("/products");
   };
 
   validateInput = (id, value) => {
@@ -63,8 +67,8 @@ class Product extends Component {
 
     return (
       name.length > 0 &&
-      number.length > 0 &&
-      price.length > 0 &&
+      number > 0 &&
+      price > 0 &&
       Object.keys(this.state.errors).length === 0
     );
   };
