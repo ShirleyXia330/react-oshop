@@ -30,7 +30,7 @@ class TableHeader extends Component {
               style={{ textTransform: "capitalize", cursor: "pointer" }}
               onClick={() => this.raiseSort(column.path)}
             >
-              {column.path}
+              {column.label ? column.label : column.path}
               {this.renderSortIcon(column.path)}
             </th>
           ))}

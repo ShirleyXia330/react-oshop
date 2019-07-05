@@ -10,19 +10,33 @@ router.route("/").post((req, res) => {
     .then(() => {
       res.json("New product has been added successfully.");
     })
-    .catch(error => {
+    .catch(() => {
       res.status(400).send("Unable to save to database");
     });
 });
 
-router.route("/:id").put(async (req, res) => {
-  const product = await productSchema
+router.route("/:id").put((req, res) => {
+  productSchema
     .findByIdAndUpdate(req.params.id, req.body)
     .then(() => {
       res.json("The product has been updated successfully.");
     })
-    .catch(error => {
+    .catch(() => {
       res.status(400).send("Unable to save to database");
+    });
+});
+
+router.route("/:id").delete((req, res) => {
+  productSchema
+    .findByIdAndDelete(req.params.id)
+    .then(product => {
+      if (!product)
+        return res.status(404).send("The product has been deleted.");
+
+      res.json(product);
+    })
+    .catch(() => {
+      res.status(404).send("The product with the given ID cannot be found.");
     });
 });
 

@@ -12,12 +12,12 @@ class ProductsTable extends Component {
     {
       path: "name",
       content: product => (
-        <Link to={`/products/${product.id}`}>{product.name}</Link>
+        <Link to={`/products/${product._id}`}>{product.name}</Link>
       )
     },
     { path: "category" },
     { path: "price" },
-    { path: "number in stock" },
+    { path: "number", label: "number in stock" },
     {
       key: "like",
       content: product => (
@@ -32,7 +32,7 @@ class ProductsTable extends Component {
       content: product => (
         <button
           className="btn btn-danger btn-sm"
-          onClick={() => this.props.onDelete(product.id)}
+          onClick={() => this.props.onDelete(product._id)}
         >
           Delete
         </button>

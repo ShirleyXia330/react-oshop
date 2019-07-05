@@ -6,6 +6,10 @@ export function getProduct(id) {
   return axios.get(url + "/" + id);
 }
 
+export function getProducts() {
+  return axios.get(url);
+}
+
 export function saveProduct(product) {
   if (product._id) {
     const data = { ...product };
@@ -14,4 +18,8 @@ export function saveProduct(product) {
   }
 
   return axios.post(url + "/", product);
+}
+
+export function deleteProduct(id) {
+  return axios.delete(url + "/" + id);
 }

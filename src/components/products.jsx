@@ -4,29 +4,20 @@ import ListGroup from "./shared/listGroup";
 import Pagination from "./shared/pagination";
 import ProductsTable from "./productsTable";
 import SearchInput from "./searchInput";
-import { getProduct } from "../services/productService";
+import { getProducts, deleteProduct } from "../services/productService";
 
 import _ from "lodash";
 import { Link } from "react-router-dom";
 
 class Products extends Component {
   state = {
-    products: [
-      { id: 1, name: "apple", category: "Fruit", liked: false },
-      { id: 2, name: "potato", category: "Vegetable", liked: false },
-      { id: 3, name: "banana", category: "Fruit", liked: false },
-      { id: 4, name: "eggplant", category: "Vegetable", liked: false },
-      { id: 5, name: "orange", category: "Fruit", liked: false },
-      { id: 6, name: "pumpkin", category: "Vegetable", liked: false },
-      { id: 7, name: "pineapple", category: "Fruit", liked: false },
-      { id: 8, name: "corn", category: "Vegetable", liked: false }
-    ],
+    products: [],
     categories: ["All", "Fruit", "Vegetable"],
     selectedCategory: "All",
     pageSize: 5,
     selectedPage: 1,
     selectedSort: { path: "name", order: "asc" },
-    searcQuery: ""
+    searchQuery: ""
   };
 
   handleCategorySelect = category => {
@@ -36,7 +27,7 @@ class Products extends Component {
       this.setState({
         selectedCategory: category,
         selectedPage: 1,
-        searcQuery: ""
+        searchQuery: ""
       });
   };
 
@@ -56,8 +47,10 @@ class Products extends Component {
   };
 
   handleDelete = id => {
-    const products = this.state.products.filter(p => p.id !== id);
-    this.setState({ products });
+    deleteProduct(id).then(res => {
+      const products = this.state.products.filter(p => p._id !== id);
+      this.setState({ products });
+    });
   };
 
   handleLike = product => {
@@ -70,7 +63,7 @@ class Products extends Component {
 
   handleSearch = query => {
     this.setState({
-      searcQuery: query.trim(),
+      searchQuery: query.trim(),
       selectedCategory: "All",
       selectedPage: 1
     });
@@ -82,6 +75,11 @@ class Products extends Component {
     return <p>There are {count} products</p>;
   }
 
+  async componentDidMount() {
+    const { data: products } = await getProducts();
+    this.setState({ products });
+  }
+
   render() {
     const {
       selectedCategory,
@@ -90,13 +88,13 @@ class Products extends Component {
       pageSize,
       selectedPage,
       categories,
-      searcQuery
+      searchQuery
     } = this.state;
 
     let selectedProducts = {};
-    if (searcQuery) {
+    if (searchQuery) {
       selectedProducts = products.filter(p =>
-        p.name.toLowerCase().startsWith(searcQuery.toLowerCase())
+        p.name.toLowerCase().startsWith(searchQuery.toLowerCase())
       );
     } else {
       selectedProducts =

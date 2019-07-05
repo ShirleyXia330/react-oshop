@@ -16,7 +16,7 @@ class TableBody extends Component {
     return (
       <tbody>
         {this.props.items.map(item => (
-          <tr key={item.id}>
+          <tr key={item._id}>
             {this.props.columns.map(column => (
               <td key={this.createKey(item, column)}>
                 {this.renderItem(item, column)}
