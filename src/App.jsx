@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 
 import { Route, Switch, Redirect } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import NavBar from "./components/navBar";
 import Products from "./components/products";
@@ -13,6 +15,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
+        <ToastContainer />
         <NavBar />
         <div className="content" style={{ margin: "20px" }}>
           <Switch>

@@ -8,6 +8,7 @@ import { getProducts, deleteProduct } from "../services/productService";
 
 import _ from "lodash";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 class Products extends Component {
   state = {
@@ -46,11 +47,19 @@ class Products extends Component {
       .value();
   };
 
-  handleDelete = id => {
-    deleteProduct(id).then(res => {
-      const products = this.state.products.filter(p => p._id !== id);
-      this.setState({ products });
-    });
+  handleDelete = async id => {
+    const originalProducts = [...this.state.products];
+    const products = this.state.products.filter(p => p._id !== id);
+    this.setState({ products });
+
+    try {
+      await deleteProduct(id);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404)
+        toast.error("This product has already been deleted.");
+
+      this.setState({ products: originalProducts });
+    }
   };
 
   handleLike = product => {

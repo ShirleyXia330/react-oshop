@@ -53,7 +53,8 @@ class Product extends Component {
     e.preventDefault();
 
     saveProduct(this.state.data).then(res => console.log(res.data));
-    this.props.history.push("/products");
+    // this.props.history.push("/");
+    window.location = "/";
   };
 
   validateInput = (id, value) => {
