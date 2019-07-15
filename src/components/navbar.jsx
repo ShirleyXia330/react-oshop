@@ -25,6 +25,9 @@ const NavBar = () => {
           <Link className="btn btn-outline-success mx-3 " to="/login">
             Login
           </Link>
+          <Link className="btn btn-outline-success mx-3 " to="/register">
+            Register
+          </Link>
         </div>
       </nav>
     </React.Fragment>

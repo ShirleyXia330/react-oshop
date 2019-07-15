@@ -10,6 +10,7 @@ import Products from "./components/products";
 import Product from "./components/product";
 import NotFound from "./components/notFound";
 import LoginForm from "./components/shared/loginForm";
+import RegisterForm from "./components/shared/registerForm";
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
         <div className="content" style={{ margin: "20px" }}>
           <Switch>
             <Route path="/login" component={LoginForm} />
+            <Route path="/register" component={RegisterForm} />
             <Route path="/products/:id" component={Product} />
             <Route
               path="/products"

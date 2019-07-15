@@ -1,10 +1,9 @@
 const express = require("express");
-const app = express();
 const router = express.Router();
 
 const userSchema = require("../models/userSchema");
 
-router.route("/").post(function(req, res) {
+router.route("/").post((req, res) => {
   const users = new userSchema(req.body);
   users
     .save()
