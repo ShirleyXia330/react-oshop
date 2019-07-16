@@ -3,15 +3,20 @@ const router = express.Router();
 
 const userSchema = require("../models/userSchema");
 
-router.route("/").post((req, res) => {
+router.route("/").post(async (req, res) => {
   const users = new userSchema(req.body);
+
+  const username = await userSchema.findOne({ username: req.body.username });
+  if (username)
+    return res.status(400).send("This username has aleady been registered.");
+
   users
     .save()
-    .then(users => {
-      res.json("New user account has been added successfully.");
+    .then(user => {
+      res.json(user.generateAuthToken());
     })
     .catch(error => {
-      res.status(400).send("unable to save to database");
+      res.status(400).send("Unable to save to database");
     });
 });
 

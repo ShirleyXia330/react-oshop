@@ -4,7 +4,6 @@ import FormInput from "./formInput";
 import { registerUser } from "../../services/userService";
 
 import Joi from "joi-browser";
-import { toast } from "react-toastify";
 
 class RegisterForm extends Component {
   state = { account: { username: "", password: "", email: "" }, errors: {} };
@@ -23,19 +22,19 @@ class RegisterForm extends Component {
       .label("Email")
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
 
     try {
-      registerUser(this.state.account);
+      const { data: token } = await registerUser(this.state.account);
+      localStorage.setItem("jwt", token);
+      this.props.history.replace("/");
     } catch (ex) {
-      console.log(ex.response.data);
       if (ex.response && ex.response.status === 400) {
         const errors = this.state.errors;
         errors.username = ex.response.data;
         this.setState({ errors });
       }
-      toast.error(ex.response.data);
     }
   };
 
