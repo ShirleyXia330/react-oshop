@@ -37,12 +37,9 @@ class LoginForm extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     try {
-      const token = await login(
-        this.state.account.username,
-        this.state.account.password
-      );
-      localStorage.setItem("jwt", token.data);
-      this.props.history.replace("/");
+      const { username, password } = this.state.account;
+      await login(username, password);
+      window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const account = { username: "", password: "" };

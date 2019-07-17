@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import FormInput from "./formInput";
 import { registerUser } from "../../services/userService";
+import { saveToken } from "../../services/authService";
 
 import Joi from "joi-browser";
 
@@ -26,9 +27,9 @@ class RegisterForm extends Component {
     e.preventDefault();
 
     try {
-      const { data: token } = await registerUser(this.state.account);
-      localStorage.setItem("jwt", token);
-      this.props.history.replace("/");
+      const { data: jwt } = await registerUser(this.state.account);
+      saveToken(jwt);
+      window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = this.state.errors;

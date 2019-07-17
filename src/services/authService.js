@@ -1,7 +1,26 @@
 import http from "./httpService";
 
-const url = "http://localhost:4000/auth";
+import jwtDecode from "jwt-decode";
 
-export function login(username, password) {
-  return http.post(url, { username, password });
+const url = "http://localhost:4000/auth";
+const key = "token";
+
+export async function login(username, password) {
+  const { data: jwt } = await http.post(url, { username, password });
+  localStorage.setItem(key, jwt);
+}
+
+export function saveToken(jwt) {
+  localStorage.setItem(key, jwt);
+}
+
+export function logout() {
+  localStorage.removeItem(key);
+}
+
+export function getUser() {
+  const jwt = localStorage.getItem("token");
+
+  if (jwt) return jwtDecode(jwt);
+  return null;
 }

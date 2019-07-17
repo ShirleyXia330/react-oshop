@@ -2,7 +2,7 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ user }) => {
   return (
     <React.Fragment>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -22,12 +22,26 @@ const NavBar = () => {
               </Link>
             </li>
           </ul>
-          <Link className="btn btn-outline-success mx-3 " to="/login">
-            Login
-          </Link>
-          <Link className="btn btn-outline-success mx-3 " to="/register">
-            Register
-          </Link>
+          {!user && (
+            <React.Fragment>
+              <Link className="btn btn-outline-success mx-3 " to="/login">
+                Login
+              </Link>
+              <Link className="btn btn-outline-success mx-3 " to="/register">
+                Register
+              </Link>
+            </React.Fragment>
+          )}
+          {user && (
+            <React.Fragment>
+              <Link className="btn btn-outline-success mx-3 " to="/profile">
+                {user.username}
+              </Link>
+              <Link className="btn btn-outline-success mx-3 " to="/logout">
+                Logout
+              </Link>
+            </React.Fragment>
+          )}
         </div>
       </nav>
     </React.Fragment>
