@@ -21,8 +21,6 @@ export function saveProduct(product) {
 }
 
 export function deleteProduct(id) {
-  // return http.delete(url + "/" + id);
-  return http.delete(
-    "http://alocalhost:4000/products/5d208014c9c54219e4f61dda"
-  );
+  return http.delete(url + "/" + id);
+  // return http.delete("http://localhost:4000/products/5d3153bae1b4a63ea4e308f9");
 }

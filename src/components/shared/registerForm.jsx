@@ -27,8 +27,8 @@ class RegisterForm extends Component {
     e.preventDefault();
 
     try {
-      const { data: jwt } = await registerUser(this.state.account);
-      saveToken(jwt);
+      const response = await registerUser(this.state.account);
+      saveToken(response.headers["x-auth-token"]);
       window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {

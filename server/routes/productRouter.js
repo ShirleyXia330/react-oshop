@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const productSchema = require("../models/productSchema");
+const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 
-router.route("/").post((req, res) => {
+router.post("/", [auth], (req, res) => {
   const products = new productSchema(req.body);
   products
     .save()
@@ -15,7 +17,7 @@ router.route("/").post((req, res) => {
     });
 });
 
-router.route("/:id").put((req, res) => {
+router.put("/:id", [auth], (req, res) => {
   productSchema
     .findByIdAndUpdate(req.params.id, req.body)
     .then(() => {
@@ -26,12 +28,12 @@ router.route("/:id").put((req, res) => {
     });
 });
 
-router.route("/:id").delete((req, res) => {
+router.delete("/:id", [auth, admin], (req, res) => {
   productSchema
     .findByIdAndDelete(req.params.id)
     .then(product => {
       if (!product)
-        return res.status(404).send("The product has been deleted.");
+        return res.status(404).send("This product has been deleted.");
 
       res.json(product);
     })

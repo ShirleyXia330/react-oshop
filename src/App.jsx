@@ -5,7 +5,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import NavBar from "./components/navBar";
+import NavBar from "./components/navbar";
 import Products from "./components/products";
 import Product from "./components/product";
 import NotFound from "./components/notFound";
@@ -21,7 +21,6 @@ class App extends Component {
     const user = getUser();
     this.setState({ user });
   }
-
   render() {
     return (
       <React.Fragment>

@@ -55,8 +55,8 @@ class Products extends Component {
     try {
       await deleteProduct(id);
     } catch (ex) {
-      if (ex.response && ex.response.status === 404)
-        toast.error("This product has already been deleted.");
+      // if (ex.response && ex.response.status === 404)
+      toast.error(ex.response.data);
 
       this.setState({ products: originalProducts });
     }

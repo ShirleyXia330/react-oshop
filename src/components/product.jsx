@@ -6,6 +6,7 @@ import { getCategories } from "../services/categoryService";
 import { getProduct, saveProduct } from "../services/productService";
 
 import Joi from "joi-browser";
+import { toast } from "react-toastify";
 
 class Product extends Component {
   state = {
@@ -49,12 +50,16 @@ class Product extends Component {
     }
   }
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
 
-    saveProduct(this.state.data).then(res => console.log(res.data));
-    // this.props.history.push("/");
-    window.location = "/";
+    try {
+      await saveProduct(this.state.data).then(res => console.log(res.data));
+      this.props.history.push("/");
+      // window.location = "/";
+    } catch (ex) {
+      toast.error(ex.response.data);
+    }
   };
 
   validateInput = (id, value) => {

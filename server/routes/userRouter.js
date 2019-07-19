@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const _ = require("lodash");
 
 const userSchema = require("../models/userSchema");
 
@@ -13,7 +14,11 @@ router.route("/").post(async (req, res) => {
   users
     .save()
     .then(user => {
-      res.json(user.generateAuthToken());
+      const token = user.generateAuthToken();
+      res
+        .header("x-auth-token", token)
+        .header("access-control-expose-headers", "x-auth-token")
+        .json(_.pick(user, ["_id", "username", "email"]));
     })
     .catch(error => {
       res.status(400).send("Unable to save to database");

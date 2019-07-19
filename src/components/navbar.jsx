@@ -35,7 +35,7 @@ const NavBar = ({ user }) => {
           {user && (
             <React.Fragment>
               <Link className="btn btn-outline-success mx-3 " to="/profile">
-                {user.username}
+                Hi, {user.username}
               </Link>
               <Link className="btn btn-outline-success mx-3 " to="/logout">
                 Logout

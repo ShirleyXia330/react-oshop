@@ -1,6 +1,6 @@
 {
   "jwtPrivateKey": "unsecureKey",
-  "db": "mongodb://localhost/vidly",
+  "db": "mongodb://localhost:27017/oshop",
   "port": "4000",
-  "requiresAuth": false
+  "requiresAuth": true
 }
