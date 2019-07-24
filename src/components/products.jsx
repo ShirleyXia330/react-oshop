@@ -5,6 +5,7 @@ import Pagination from "./shared/pagination";
 import ProductsTable from "./productsTable";
 import SearchInput from "./searchInput";
 import { getProducts, deleteProduct } from "../services/productService";
+import { getUser } from "../services/authService";
 
 import _ from "lodash";
 import { Link } from "react-router-dom";
@@ -99,6 +100,8 @@ class Products extends Component {
       categories,
       searchQuery
     } = this.state;
+    // const { user } = this.props;
+    // console.log(this.props);
 
     let selectedProducts = {};
     if (searchQuery) {
@@ -134,13 +137,15 @@ class Products extends Component {
           />
         </div>
         <div className="col">
-          <Link
-            to="/products/new"
-            className="btn btn-primary"
-            style={{ marginBottom: 20 }}
-          >
-            New Product
-          </Link>
+          {getUser() && (
+            <Link
+              to="/products/new"
+              className="btn btn-primary"
+              style={{ marginBottom: 20 }}
+            >
+              New Product
+            </Link>
+          )}
           {this.conditionalRender(selectedProducts.length)}
           <SearchInput onChange={this.handleSearch} />
           <ProductsTable

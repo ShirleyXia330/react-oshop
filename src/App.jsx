@@ -13,6 +13,7 @@ import LoginForm from "./components/shared/loginForm";
 import Logout from "./components/logout";
 import RegisterForm from "./components/shared/registerForm";
 import { getUser } from "./services/authService";
+import ProtectedRoute from "./components/shared/protectedRoute";
 
 class App extends Component {
   state = {};
@@ -22,20 +23,23 @@ class App extends Component {
     this.setState({ user });
   }
   render() {
+    const { user } = this.state;
+
     return (
       <React.Fragment>
         <ToastContainer />
-        <NavBar user={this.state.user} />
+        <NavBar user={user} />
         <div className="content" style={{ margin: "20px" }}>
           <Switch>
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />
             <Route path="/register" component={RegisterForm} />
-            <Route path="/products/:id" component={Product} />
-            <Route
+            <ProtectedRoute path="/products/:id" component={Product} />
+            {/* <Route
               path="/products"
-              render={props => <Products sortBy="id" {...props} />}
-            />
+              render={props => <Products {...props} user={user} />}
+            /> */}
+            <Route path="/products" render={props => <Products {...props} />} />
             <Route path="/" exact component={Products} />
             <Route path="/not-found" component={NotFound} />
             <Redirect to="/not-found" />
