@@ -5,8 +5,12 @@ const productSchema = require("../models/productSchema");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 
-router.post("/", [auth], (req, res) => {
+router.post("/", [auth], async (req, res) => {
   const products = new productSchema(req.body);
+  const productName = await productSchema.findOne({ name: req.body.name });
+  if (productName)
+    return res.status(400).send("This product has aleady been in list.");
+
   products
     .save()
     .then(() => {

@@ -18,7 +18,11 @@ const productRouter = require("./routes/productRouter");
 const authRouter = require("./routes/authRouter");
 
 mongoose
-  .connect(config.get("db"), { useCreateIndex: true, useNewUrlParser: true })
+  .connect(config.get("db"), {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useFindAndModify: false
+  })
   .then(
     () => {
       console.log("Database is connected");

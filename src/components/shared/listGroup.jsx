@@ -7,14 +7,15 @@ const ListGroup = ({ categories, selectedCategory, onCategorySelect }) => {
       {categories.map(category => (
         <li
           className={
-            category === selectedCategory
+            category.name === selectedCategory
               ? "list-group-item active"
               : "list-group-item"
           }
-          key={category}
-          onClick={() => onCategorySelect(category)}
+          key={category.name}
+          onClick={() => onCategorySelect(category.name)}
+          style={{ cursor: "pointer" }}
         >
-          {category}
+          {category.name}
         </li>
       ))}
     </ul>

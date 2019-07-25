@@ -5,6 +5,7 @@ import Pagination from "./shared/pagination";
 import ProductsTable from "./productsTable";
 import SearchInput from "./searchInput";
 import { getProducts, deleteProduct } from "../services/productService";
+import { getCategories } from "../services/categoryService";
 import { getUser } from "../services/authService";
 
 import _ from "lodash";
@@ -14,7 +15,7 @@ import { toast } from "react-toastify";
 class Products extends Component {
   state = {
     products: [],
-    categories: ["All", "Fruit", "Vegetable"],
+    categories: [],
     selectedCategory: "All",
     pageSize: 5,
     selectedPage: 1,
@@ -38,7 +39,7 @@ class Products extends Component {
   };
 
   handleSortSelect = selectedSort => {
-    this.setState({ selectedSort });
+    this.setState({ selectedSort, selectedPage: 1 });
   };
 
   handlePaginate = (pageSize, selectedPage, selectedProducts) => {
@@ -87,7 +88,9 @@ class Products extends Component {
 
   async componentDidMount() {
     const { data: products } = await getProducts();
-    this.setState({ products });
+    const { data } = await getCategories();
+    const categories = [{ _id: "", name: "All" }, ...data];
+    this.setState({ products, categories });
   }
 
   render() {
@@ -100,8 +103,6 @@ class Products extends Component {
       categories,
       searchQuery
     } = this.state;
-    // const { user } = this.props;
-    // console.log(this.props);
 
     let selectedProducts = {};
     if (searchQuery) {

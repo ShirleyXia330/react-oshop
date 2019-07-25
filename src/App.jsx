@@ -18,30 +18,20 @@ import ProtectedRoute from "./components/shared/protectedRoute";
 class App extends Component {
   state = {};
 
-  componentDidMount() {
-    const user = getUser();
-    this.setState({ user });
-  }
   render() {
-    const { user } = this.state;
-
     return (
       <React.Fragment>
         <ToastContainer />
-        <NavBar user={user} />
+        <NavBar user={getUser()} />
         <div className="content" style={{ margin: "20px" }}>
           <Switch>
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />
             <Route path="/register" component={RegisterForm} />
             <ProtectedRoute path="/products/:id" component={Product} />
-            {/* <Route
-              path="/products"
-              render={props => <Products {...props} user={user} />}
-            /> */}
             <Route path="/products" render={props => <Products {...props} />} />
-            <Route path="/" exact component={Products} />
             <Route path="/not-found" component={NotFound} />
+            <Redirect from="/" exact to="/products" />
             <Redirect to="/not-found" />
           </Switch>
         </div>

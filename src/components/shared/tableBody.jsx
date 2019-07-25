@@ -18,7 +18,10 @@ class TableBody extends Component {
         {this.props.items.map(item => (
           <tr key={item._id}>
             {this.props.columns.map(column => (
-              <td key={this.createKey(item, column)}>
+              <td
+                key={this.createKey(item, column)}
+                style={{ textTransform: "capitalize" }}
+              >
                 {this.renderItem(item, column)}
               </td>
             ))}
