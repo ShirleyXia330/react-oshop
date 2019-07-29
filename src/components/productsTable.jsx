@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import TableHeader from "./shared/tableHeader";
 import TableBody from "./shared/tableBody";
-import Like from "./shared/like";
+// import Like from "./shared/like";
 import { getUser } from "../services/authService";
 
 import { Link } from "react-router-dom";
@@ -20,12 +20,12 @@ class ProductsTable extends Component {
     { path: "number", label: "number in stock" }
   ];
 
-  likeColumn = {
-    key: "like",
-    content: product => (
-      <Like liked={product.liked} onClick={() => this.props.onLike(product)} />
-    )
-  };
+  // likeColumn = {
+  //   key: "like",
+  //   content: product => (
+  //     <Like liked={product.liked} onClick={() => this.props.onLike(product)} />
+  //   )
+  // };
 
   deleteColumn = {
     key: "delete",
@@ -43,7 +43,7 @@ class ProductsTable extends Component {
     super();
 
     const user = getUser();
-    if (user) this.columns.push(this.likeColumn);
+    // if (user) this.columns.push(this.likeColumn);
     if (user && user.isAdmin) this.columns.push(this.deleteColumn);
   }
 

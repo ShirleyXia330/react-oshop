@@ -16,3 +16,74 @@ code {
 .navbar {
   margin-bottom: 30px;
 }
+
+#dropdownItem {
+  opacity: 0.6;
+  transition: 0.5s;
+}
+
+#dropdownItem:hover {
+  color: white;
+  background-color: rgb(75, 181, 67);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  opacity: 1;
+}
+
+#dropdownItem:active {
+  outline: 0;
+}
+
+li a i {
+  color: tomato;
+  margin-right: 3px;
+  transition: 0.5s;
+}
+
+li a i:hover {
+  color: black;
+  margin-right: 0px;
+}
+
+ul li.list-group-item {
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+ul li.list-group-item:hover {
+  background-color: #f8f8f8;
+}
+
+ul li.list-group-item:active {
+  background-color: rgb(75, 181, 67);
+  color: white;
+}
+
+ul li.list-group-item.active {
+  background-color: rgb(75, 181, 67);
+  border-color: rgb(75, 181, 67);
+  color: white;
+}
+
+div.card-div {
+  margin-bottom: 30px;
+}
+
+div.card {
+  padding: 0;
+}
+
+div.card:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+div.card-footer {
+  padding: 0;
+}
+
+div.card-footer div.row {
+  padding: 0 15px 0 15px;
+}
+
+div.text-center {
+  padding-top: 6px;
+}

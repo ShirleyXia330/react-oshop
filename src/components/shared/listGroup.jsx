@@ -13,7 +13,6 @@ const ListGroup = ({ categories, selectedCategory, onCategorySelect }) => {
           }
           key={category.name}
           onClick={() => onCategorySelect(category.name)}
-          style={{ cursor: "pointer" }}
         >
           {category.name}
         </li>

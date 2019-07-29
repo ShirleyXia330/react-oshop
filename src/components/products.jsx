@@ -141,7 +141,7 @@ class Products extends Component {
           {getUser() && (
             <Link
               to="/products/new"
-              className="btn btn-primary"
+              className="btn btn-success"
               style={{ marginBottom: 20 }}
             >
               New Product
