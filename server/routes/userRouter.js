@@ -20,7 +20,7 @@ router.route("/").post(async (req, res) => {
         .header("access-control-expose-headers", "x-auth-token")
         .json(_.pick(user, ["_id", "username", "email"]));
     })
-    .catch(error => {
+    .catch(() => {
       res.status(400).send("Unable to save to database");
     });
 });

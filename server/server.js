@@ -16,6 +16,7 @@ const userRouter = require("./routes/userRouter");
 const categoryRouter = require("./routes/categoryRouter");
 const productRouter = require("./routes/productRouter");
 const authRouter = require("./routes/authRouter");
+const cartRouter = require("./routes/cartRouter");
 
 mongoose
   .connect(config.get("db"), {
@@ -40,6 +41,7 @@ app.use("/users", userRouter);
 app.use("/categories", categoryRouter);
 app.use("/products", productRouter);
 app.use("/auth", authRouter);
+app.use("/cart", cartRouter);
 
 app.listen(port, function() {
   console.log("Server is running on Port: ", port);

@@ -1,9 +1,60 @@
 import http from "./httpService";
+import _ from "lodash";
 
 const url = "http://localhost:4000/cart";
 
 export function createCart() {
-  return http.post(url + "/", {
-    createdDate: new Date().getTime()
+  const createdDate = new Date().getTime();
+  http.post(url + "/", {
+    id: createdDate
   });
+  return createdDate;
+}
+
+export async function Increment(cartId, product) {
+  const { data } = await getCart(cartId);
+  let items = data[0].items;
+  const index = _.findIndex(items, { _id: product._id });
+
+  if (index === -1) {
+    const item = { ...product, numberInCart: 1 };
+    items.push(item);
+  } else {
+    const item = items[index];
+    item.numberInCart++;
+    items.splice(index, 1, item);
+  }
+
+  changeCart(cartId, { id: cartId, items: items });
+}
+
+export async function Decrement(cartId, product) {
+  const { data } = await getCart(cartId);
+  let items = data[0].items;
+  const index = _.findIndex(items, { _id: product._id });
+  const item = items[index];
+
+  if (item.numberInCart === 1) _.remove(items, { _id: product._id });
+  else {
+    item.numberInCart--;
+    items.splice(index, 1, item);
+  }
+
+  changeCart(cartId, { id: cartId, items: items });
+}
+
+export function getCart(id) {
+  return http.get(url + "/" + id);
+}
+
+export function changeCart(cartId, items) {
+  return http.put(url + "/" + cartId, items);
+}
+
+export async function numberInCart(cartId, productId) {
+  const { data } = await getCart(cartId);
+  let items = data[0].items;
+  const index = _.findIndex(items, { _id: productId });
+  if (index === -1) return null;
+  return items[index].numberInCart;
 }

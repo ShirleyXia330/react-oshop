@@ -4,6 +4,12 @@ import ListGroup from "./shared/listGroup";
 import { getProducts } from "../services/productService";
 import { getCategories } from "../services/categoryService";
 import ProductCard from "./productCard";
+import {
+  createCart,
+  Increment,
+  Decrement,
+  numberInCart
+} from "../services/shoppingCartService";
 
 class Home extends Component {
   state = { products: [], categories: [], selectedCategory: "All" };
@@ -17,6 +23,31 @@ class Home extends Component {
         selectedPage: 1,
         searchQuery: ""
       });
+  };
+
+  handleIncrement = async product => {
+    let cartId = localStorage.getItem("cartId");
+    if (!cartId) {
+      cartId = await createCart();
+      localStorage.setItem("cartId", cartId);
+    }
+    Increment(cartId, product);
+  };
+
+  handleDecrement = async product => {
+    let cartId = localStorage.getItem("cartId");
+    if (!cartId) {
+      cartId = await createCart();
+      localStorage.setItem("cartId", cartId);
+    }
+    Decrement(cartId, product);
+  };
+
+  showNumber = productId => {
+    let cartId = localStorage.getItem("cartId");
+    if (!cartId) return null;
+    console.log(numberInCart(cartId, productId));
+    return numberInCart(cartId, productId);
   };
 
   async componentDidMount() {
@@ -43,8 +74,10 @@ class Home extends Component {
             {this.state.products.map(p => (
               <ProductCard
                 key={p._id}
-                name={p.name}
-                price={p.price}
+                product={p}
+                onIncrement={this.handleIncrement}
+                onDecrement={this.handleDecrement}
+                onShowNumber={this.showNumber}
                 src="http://www.publicdomainpictures.net/pictures/170000/velka/spinach-leaves-1461774375kTU.jpg"
               />
             ))}
