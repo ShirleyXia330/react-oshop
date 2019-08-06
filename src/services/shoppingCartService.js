@@ -25,7 +25,7 @@ export async function Increment(cartId, product) {
     items.splice(index, 1, item);
   }
 
-  changeCart(cartId, { id: cartId, items: items });
+  return changeCart(cartId, { id: cartId, items: items });
 }
 
 export async function Decrement(cartId, product) {
@@ -40,7 +40,7 @@ export async function Decrement(cartId, product) {
     items.splice(index, 1, item);
   }
 
-  changeCart(cartId, { id: cartId, items: items });
+  return changeCart(cartId, { id: cartId, items: items });
 }
 
 export function getCart(id) {
@@ -49,12 +49,4 @@ export function getCart(id) {
 
 export function changeCart(cartId, items) {
   return http.put(url + "/" + cartId, items);
-}
-
-export async function numberInCart(cartId, productId) {
-  const { data } = await getCart(cartId);
-  let items = data[0].items;
-  const index = _.findIndex(items, { _id: productId });
-  if (index === -1) return null;
-  return items[index].numberInCart;
 }

@@ -7,7 +7,7 @@ const ProductCard = ({
   product,
   onIncrement,
   onDecrement,
-  onShowNumber
+  numberInCart
 }) => {
   return (
     <div className="col-md-6 col-sm-12 card-div">
@@ -26,7 +26,7 @@ const ProductCard = ({
           </Card.Text>
         </Card.Body>
         <Card.Footer>
-          {onShowNumber(product._id) && (
+          {numberInCart !== 0 && (
             <div className="row">
               <button
                 className="btn btn-success col-2"
@@ -34,7 +34,7 @@ const ProductCard = ({
               >
                 -
               </button>
-              <div className="col text-center">1 in cart</div>
+              <div className="col text-center">{numberInCart} in cart</div>
               <button
                 className="btn btn-success col-2"
                 onClick={() => onIncrement(product)}
@@ -43,7 +43,7 @@ const ProductCard = ({
               </button>
             </div>
           )}
-          {!onShowNumber(product._id) && (
+          {numberInCart === 0 && (
             <button
               className="btn btn-success btn-block"
               onClick={() => onIncrement(product)}

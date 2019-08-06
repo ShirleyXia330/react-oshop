@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import _ from "lodash";
 
 import ListGroup from "./shared/listGroup";
 import { getProducts } from "../services/productService";
@@ -8,7 +9,7 @@ import {
   createCart,
   Increment,
   Decrement,
-  numberInCart
+  getCart
 } from "../services/shoppingCartService";
 
 class Home extends Component {
@@ -31,7 +32,8 @@ class Home extends Component {
       cartId = await createCart();
       localStorage.setItem("cartId", cartId);
     }
-    Increment(cartId, product);
+    const { data: cart } = await Increment(cartId, product);
+    this.setState({ cart });
   };
 
   handleDecrement = async product => {
@@ -40,20 +42,30 @@ class Home extends Component {
       cartId = await createCart();
       localStorage.setItem("cartId", cartId);
     }
-    Decrement(cartId, product);
+    const { data: cart } = await Decrement(cartId, product);
+    this.setState({ cart });
   };
 
-  showNumber = productId => {
-    let cartId = localStorage.getItem("cartId");
-    if (!cartId) return null;
-    console.log(numberInCart(cartId, productId));
-    return numberInCart(cartId, productId);
+  getQuantity = productId => {
+    const cart = this.state.cart;
+    if (!cart) return 0;
+
+    const index = _.findIndex(cart.items, { _id: productId });
+    if (index === -1) return 0;
+
+    return cart.items[index].numberInCart;
   };
 
   async componentDidMount() {
     const { data: products } = await getProducts();
     const { data } = await getCategories();
     const categories = [{ _id: "", name: "All" }, ...data];
+    const cartId = localStorage.getItem("cartId");
+
+    if (cartId) {
+      const { data } = await getCart(cartId);
+      this.setState({ cart: data[0] });
+    }
     this.setState({ products, categories });
   }
 
@@ -77,7 +89,7 @@ class Home extends Component {
                 product={p}
                 onIncrement={this.handleIncrement}
                 onDecrement={this.handleDecrement}
-                onShowNumber={this.showNumber}
+                numberInCart={this.getQuantity(p._id)}
                 src="http://www.publicdomainpictures.net/pictures/170000/velka/spinach-leaves-1461774375kTU.jpg"
               />
             ))}
