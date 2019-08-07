@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-
 import { Route, Switch, Redirect } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,11 +16,47 @@ import ShoppingCart from "./components/shoppingCart";
 import Home from "./components/home";
 
 import { getUser } from "./services/authService";
+import {
+  createCart,
+  getCart,
+  Increment,
+  Decrement
+} from "./services/shoppingCartService";
 
 class App extends Component {
   state = {};
 
+  handleIncrement = async product => {
+    let cartId = localStorage.getItem("cartId");
+    if (!cartId) {
+      cartId = await createCart();
+      localStorage.setItem("cartId", cartId);
+    }
+    const { data: cart } = await Increment(cartId, product);
+    this.setState({ cart });
+  };
+
+  handleDecrement = async product => {
+    let cartId = localStorage.getItem("cartId");
+    if (!cartId) {
+      cartId = await createCart();
+      localStorage.setItem("cartId", cartId);
+    }
+    const { data: cart } = await Decrement(cartId, product);
+    this.setState({ cart });
+  };
+
+  async componentDidMount() {
+    const cartId = localStorage.getItem("cartId");
+    if (cartId) {
+      const { data } = await getCart(cartId);
+      this.setState({ cart: data[0] });
+    }
+  }
+
   render() {
+    const cart = this.state.cart;
+
     return (
       <React.Fragment>
         <script src="https://unpkg.com/react/umd/react.production.min.js" />
@@ -36,18 +71,27 @@ class App extends Component {
         />
 
         <ToastContainer />
-        <NavBar user={getUser()} />
+        <NavBar user={getUser()} cart={cart} />
         <div className="content" style={{ margin: "20px" }}>
           <Switch>
             <Route path="/cart" component={ShoppingCart} />
-            <Route path="/home" component={Home} />
+            <Route
+              path="/home"
+              render={() => (
+                <Home
+                  cart={cart}
+                  onIncrement={this.handleIncrement}
+                  onDecrement={this.handleDecrement}
+                />
+              )}
+            />
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />
             <Route path="/register" component={RegisterForm} />
             <ProtectedRoute path="/products/:id" component={Product} />
             <Route path="/products" render={props => <Products {...props} />} />
             <Route path="/not-found" component={NotFound} />
-            <Route path="/" exact component={Home} />
+            <Redirect from="/" to="/home" exact />
             <Redirect to="/not-found" />
           </Switch>
         </div>
