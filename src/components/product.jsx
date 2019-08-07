@@ -14,7 +14,8 @@ class Product extends Component {
       name: "",
       category: "",
       price: 0,
-      number: 0
+      numberInStock: 0,
+      imageUrl: ""
     },
     categories: [],
     errors: {}
@@ -29,11 +30,15 @@ class Product extends Component {
       .min(0)
       .required()
       .label("Price"),
-    number: Joi.number()
+    numberInStock: Joi.number()
       .integer()
       .min(0)
       .required()
-      .label("Number in Stock")
+      .label("Number in Stock"),
+    imageUrl: Joi.string()
+      .uri()
+      .required()
+      .label("Image URL")
   };
 
   async componentDidMount() {
@@ -55,7 +60,7 @@ class Product extends Component {
 
     try {
       await saveProduct(this.state.data).then(res => console.log(res.data));
-      this.props.history.push("/");
+      this.props.history.push("/products");
       // window.location = "/";
     } catch (ex) {
       toast.error(ex.response.data);
@@ -69,12 +74,13 @@ class Product extends Component {
   };
 
   submitAble = () => {
-    const { name, number, price } = this.state.data;
+    const { name, numberInStock, price, imageUrl } = this.state.data;
 
     return (
       name.length > 0 &&
-      number > 0 &&
+      numberInStock > 0 &&
       price > 0 &&
+      imageUrl.length > 0 &&
       Object.keys(this.state.errors).length === 0
     );
   };
@@ -126,12 +132,19 @@ class Product extends Component {
             error={this.state.errors.price}
           />
           <FormInput
-            id="number"
+            id="numberInStock"
             name="Number In Stock"
             type="number"
             onChange={this.handleChange}
-            value={this.state.data.number}
-            error={this.state.errors.number}
+            value={this.state.data.numberInStock}
+            error={this.state.errors.numberInStock}
+          />
+          <FormInput
+            id="imageUrl"
+            name="Image URL"
+            onChange={this.handleChange}
+            value={this.state.data.imageUrl}
+            error={this.state.errors.imageUrl}
           />
           <button className="btn btn-primary" disabled={!this.submitAble()}>
             Save

@@ -6,9 +6,10 @@ var itemSchema = new Schema({
   name: { type: String, required: true, unique: true },
   category: { type: String, required: true },
   price: { type: Number, required: true, min: 0 },
-  number: { type: Number, required: true, min: 0 },
+  numberInStock: { type: Number, required: true, min: 0 },
+  imageUrl: { type: String },
 
-  numberInCart: { type: Number, required: true }
+  numberInCart: { type: Number, required: true, min: 0 }
 });
 
 const cartSchema = new Schema(

@@ -2,17 +2,11 @@ import React from "react";
 
 import { Card } from "react-bootstrap";
 
-const ProductCard = ({
-  src,
-  product,
-  onIncrement,
-  onDecrement,
-  numberInCart
-}) => {
+const ProductCard = ({ product, onIncrement, onDecrement, numberInCart }) => {
   return (
     <div className="col-md-6 col-sm-12 card-div">
       <Card>
-        <Card.Img variant="top" src={src} />
+        <Card.Img variant="top" src={product.imageUrl} />
         <Card.Body>
           <Card.Title style={{ textTransform: "capitalize" }}>
             {product.name}

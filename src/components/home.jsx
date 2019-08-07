@@ -60,7 +60,6 @@ class Home extends Component {
                 onIncrement={onIncrement}
                 onDecrement={onDecrement}
                 numberInCart={this.getQuantity(p._id)}
-                src="http://www.publicdomainpictures.net/pictures/170000/velka/spinach-leaves-1461774375kTU.jpg"
               />
             ))}
           </div>

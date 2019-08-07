@@ -19,7 +19,7 @@ class RegisterForm extends Component {
       .label("Password"),
     email: Joi.string()
       .required()
-      .email()
+      .email({ minDomainAtoms: 2 })
       .label("Email")
   };
 
