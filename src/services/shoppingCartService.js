@@ -14,17 +14,20 @@ export function createCart() {
 export async function Increment(cartId, product) {
   const { data } = await getCart(cartId);
   let items = data[0].items;
-  const index = _.findIndex(items, { _id: product._id });
-
-  if (index === -1) {
+  if (!items) {
     const item = { ...product, numberInCart: 1 };
-    items.push(item);
+    items = item;
   } else {
-    const item = items[index];
-    item.numberInCart++;
-    items.splice(index, 1, item);
+    const index = _.findIndex(items, { _id: product._id });
+    if (index === -1) {
+      const item = { ...product, numberInCart: 1 };
+      items.push(item);
+    } else {
+      const item = items[index];
+      item.numberInCart++;
+      items.splice(index, 1, item);
+    }
   }
-
   return changeCart(cartId, { id: cartId, items: items });
 }
 
@@ -34,13 +37,17 @@ export async function Decrement(cartId, product) {
   const index = _.findIndex(items, { _id: product._id });
   const item = items[index];
 
-  if (item.numberInCart === 1) _.remove(items, { _id: product._id });
+  if (item.numberInCart <= 1) _.remove(items, { _id: product._id });
   else {
     item.numberInCart--;
     items.splice(index, 1, item);
   }
 
   return changeCart(cartId, { id: cartId, items: items });
+}
+
+export function clearCart(cartId) {
+  return changeCart(cartId, { id: cartId, items: new Array() });
 }
 
 export function getCart(id) {

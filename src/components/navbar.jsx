@@ -14,9 +14,7 @@ class NavBar extends Component {
 
   getItemCount = cart => {
     if (!cart) return 0;
-
-    const counts = _.map(cart.items, "numberInCart");
-    return _.sum(counts);
+    return _.sumBy(cart.items, item => item.numberInCart);
   };
 
   render() {

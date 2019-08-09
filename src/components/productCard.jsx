@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Card } from "react-bootstrap";
+import QuantityButton from "./shared/quantityButton";
 
 const ProductCard = ({ product, onIncrement, onDecrement, numberInCart }) => {
   return (
@@ -21,21 +22,12 @@ const ProductCard = ({ product, onIncrement, onDecrement, numberInCart }) => {
         </Card.Body>
         <Card.Footer>
           {numberInCart !== 0 && (
-            <div className="row">
-              <button
-                className="btn btn-success col-2"
-                onClick={() => onDecrement(product)}
-              >
-                -
-              </button>
-              <div className="col text-center">{numberInCart} in cart</div>
-              <button
-                className="btn btn-success col-2"
-                onClick={() => onIncrement(product)}
-              >
-                +
-              </button>
-            </div>
+            <QuantityButton
+              product={product}
+              numberInCart={numberInCart}
+              onDecrement={onDecrement}
+              onIncrement={onIncrement}
+            />
           )}
           {numberInCart === 0 && (
             <button

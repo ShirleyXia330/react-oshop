@@ -20,7 +20,8 @@ import {
   createCart,
   getCart,
   Increment,
-  Decrement
+  Decrement,
+  clearCart
 } from "./services/shoppingCartService";
 
 class App extends Component {
@@ -32,7 +33,7 @@ class App extends Component {
       cartId = await createCart();
       localStorage.setItem("cartId", cartId);
     }
-    const { data: cart } = await Increment(cartId, product);
+    let { data: cart } = await Increment(cartId, product);
     this.setState({ cart });
   };
 
@@ -43,6 +44,12 @@ class App extends Component {
       localStorage.setItem("cartId", cartId);
     }
     const { data: cart } = await Decrement(cartId, product);
+    this.setState({ cart });
+  };
+
+  handleClear = async () => {
+    const cartId = localStorage.getItem("cartId");
+    const { data: cart } = await clearCart(cartId);
     this.setState({ cart });
   };
 
@@ -73,7 +80,17 @@ class App extends Component {
         <NavBar user={getUser()} cart={cart} />
         <div className="content" style={{ margin: "20px" }}>
           <Switch>
-            <Route path="/cart" component={ShoppingCart} />
+            <Route
+              path="/cart"
+              render={() => (
+                <ShoppingCart
+                  cart={cart}
+                  onIncrement={this.handleIncrement}
+                  onDecrement={this.handleDecrement}
+                  onClear={this.handleClear}
+                />
+              )}
+            />
             <Route
               path="/home"
               render={() => (
