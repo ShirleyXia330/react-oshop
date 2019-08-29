@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash";
+import Currency from "react-currency-formatter";
 
 import QuantityButton from "./shared/quantityButton";
 
@@ -32,10 +33,10 @@ class ShoppingCart extends Component {
             <button className="btn btn-success" onClick={onClear}>
               Clear Shopping Cart
             </button>
-            <table className="table">
+            <table className="table table-striped">
               <thead>
                 <tr>
-                  <th />
+                  <th style={{ width: "200px" }} />
                   <th>Product</th>
                   <th style={{ width: "200px", textAlign: "center" }}>
                     Quantity
@@ -68,7 +69,10 @@ class ShoppingCart extends Component {
                         />
                       </td>
                       <td id="text-right">
-                        *{item.price}= A${item.numberInCart * item.price}
+                        <Currency
+                          quantity={item.numberInCart * item.price}
+                          currency="AUD"
+                        />
                       </td>
                     </tr>
                   ))}
@@ -79,7 +83,12 @@ class ShoppingCart extends Component {
                   <th>Total Price:</th>
                   <th />
                   <th />
-                  <th id="text-right">A${this.getTotalPrice(cart)}</th>
+                  <th id="text-right">
+                    <Currency
+                      quantity={this.getTotalPrice(cart)}
+                      currency="AUD"
+                    />
+                  </th>
                 </tr>
               </tfoot>
             </table>
