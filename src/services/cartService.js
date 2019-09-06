@@ -14,9 +14,8 @@ export function createCart() {
 export async function Increment(cartId, product) {
   const { data } = await getCart(cartId);
   let items = data[0].items;
-  if (!items) {
-    const item = { ...product, numberInCart: 1 };
-    items = item;
+  if (items.length === 0) {
+    items = [{ ...product, numberInCart: 1 }];
   } else {
     const index = _.findIndex(items, { _id: product._id });
     if (index === -1) {
@@ -47,7 +46,8 @@ export async function Decrement(cartId, product) {
 }
 
 export function clearCart(cartId) {
-  return changeCart(cartId, { id: cartId, items: new Array() });
+  // return changeCart(cartId, { id: cartId, items: new Array() });
+  return changeCart(cartId, { id: cartId, items: [] });
 }
 
 export function getCart(id) {

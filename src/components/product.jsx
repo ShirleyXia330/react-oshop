@@ -75,6 +75,7 @@ class Product extends Component {
 
   submitAble = () => {
     const { name, numberInStock, price, imageUrl } = this.state.data;
+    // const { name, price, imageUrl } = this.state.data;
 
     return (
       name.length > 0 &&

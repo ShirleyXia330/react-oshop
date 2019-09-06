@@ -13,6 +13,7 @@ import Logout from "./components/logout";
 import RegisterForm from "./components/shared/registerForm";
 import ProtectedRoute from "./components/shared/protectedRoute";
 import ShoppingCart from "./components/shoppingCart";
+import Shipping from "./components/shipping";
 import Home from "./components/home";
 
 import { getUser } from "./services/authService";
@@ -22,7 +23,7 @@ import {
   Increment,
   Decrement,
   clearCart
-} from "./services/shoppingCartService";
+} from "./services/cartService";
 
 class App extends Component {
   state = {};
@@ -104,6 +105,10 @@ class App extends Component {
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />
             <Route path="/register" component={RegisterForm} />
+            <Route
+              path="/shipping"
+              render={() => <Shipping cart={cart} onClear={this.handleClear} />}
+            />
             <ProtectedRoute path="/products/:id" component={Product} />
             <Route path="/products" render={props => <Products {...props} />} />
             <Route path="/not-found" component={NotFound} />

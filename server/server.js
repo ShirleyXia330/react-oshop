@@ -1,5 +1,5 @@
 //npm install express nodemon body-parser cors mongoose bcryptjs config jsonwebtoken
-//cd C:\xia\study\react\oshop\server
+//cd C:\Users\study\react\oshop\server
 //node server.js
 
 //mongod
@@ -17,6 +17,7 @@ const categoryRouter = require("./routes/categoryRouter");
 const productRouter = require("./routes/productRouter");
 const authRouter = require("./routes/authRouter");
 const cartRouter = require("./routes/cartRouter");
+const orderRouter = require("./routes/orderRouter");
 
 mongoose
   .connect(config.get("db"), {
@@ -42,6 +43,7 @@ app.use("/categories", categoryRouter);
 app.use("/products", productRouter);
 app.use("/auth", authRouter);
 app.use("/cart", cartRouter);
+app.use("/orders", orderRouter);
 
 app.listen(port, function() {
   console.log("Server is running on Port: ", port);

@@ -17,7 +17,7 @@ class ProductsTable extends Component {
     },
     { path: "category" },
     { path: "price" },
-    { path: "number", label: "number in stock" }
+    { path: "numberInStock", label: "number in stock" }
   ];
 
   // likeColumn = {

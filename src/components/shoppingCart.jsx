@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import Currency from "react-currency-formatter";
+import { Link } from "react-router-dom";
 
 import QuantityButton from "./shared/quantityButton";
 
@@ -29,10 +30,10 @@ class ShoppingCart extends Component {
           <div className="row col-10">
             <p>
               You have {this.getItemCount(cart)} items in your shopping cart.
+              <button className="btn btn-light btn-sm" onClick={onClear}>
+                Clear Shopping Cart
+              </button>
             </p>
-            <button className="btn btn-success" onClick={onClear}>
-              Clear Shopping Cart
-            </button>
             <table className="table table-striped">
               <thead>
                 <tr>
@@ -92,6 +93,11 @@ class ShoppingCart extends Component {
                 </tr>
               </tfoot>
             </table>
+            {cart.items && (
+              <Link className="btn btn-success" to="/shipping">
+                Check Out
+              </Link>
+            )}
           </div>
         )}
       </React.Fragment>
