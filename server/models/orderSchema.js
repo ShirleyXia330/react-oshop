@@ -20,7 +20,9 @@ const orderSchema = new Schema(
         numberInStock: { type: Number, required: true, min: 0 },
         price: { type: Number, required: true, min: 0 }
       }
-    ]
+    ],
+    // userId: { type: String, required: true },
+    totalPrice: { type: Number, required: true, min: 0 }
   },
   {
     collection: "orders"

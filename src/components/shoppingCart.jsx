@@ -30,9 +30,11 @@ class ShoppingCart extends Component {
           <div className="row col-10">
             <p>
               You have {this.getItemCount(cart)} items in your shopping cart.
-              <button className="btn btn-light btn-sm" onClick={onClear}>
-                Clear Shopping Cart
-              </button>
+              {cart.items[0] && (
+                <button className="btn btn-light btn-sm" onClick={onClear}>
+                  Clear Shopping Cart
+                </button>
+              )}
             </p>
             <table className="table table-striped">
               <thead>
@@ -45,43 +47,41 @@ class ShoppingCart extends Component {
                   <th id="text-right">Price</th>
                 </tr>
               </thead>
-              {cart.items && (
-                <tbody>
-                  {cart.items.map(item => (
-                    <tr key={cart.id + item._id}>
-                      <td>
-                        <div
-                          className="background-image"
-                          id="thumbnail"
-                          style={{
-                            backgroundImage: "url(" + item.imageUrl + ")"
-                          }}
-                        />
-                      </td>
-                      <td style={{ textTransform: "capitalize" }}>
-                        {item.name}
-                      </td>
-                      <td>
-                        <QuantityButton
-                          product={item}
-                          numberInCart={item.numberInCart}
-                          onDecrement={onDecrement}
-                          onIncrement={onIncrement}
-                        />
-                      </td>
-                      <td id="text-right">
-                        <Currency
-                          quantity={item.numberInCart * item.price}
-                          currency="AUD"
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              )}
+              {/* {cart.items && ( */}
+              <tbody>
+                {cart.items.map(item => (
+                  <tr key={cart.id + item._id}>
+                    <td>
+                      <div
+                        className="background-image"
+                        id="thumbnail"
+                        style={{
+                          backgroundImage: "url(" + item.imageUrl + ")"
+                        }}
+                      />
+                    </td>
+                    <td style={{ textTransform: "capitalize" }}>{item.name}</td>
+                    <td>
+                      <QuantityButton
+                        product={item}
+                        numberInCart={item.numberInCart}
+                        onDecrement={onDecrement}
+                        onIncrement={onIncrement}
+                      />
+                    </td>
+                    <td id="text-right">
+                      <Currency
+                        quantity={item.numberInCart * item.price}
+                        currency="AUD"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+              {/* )} */}
               <tfoot>
                 <tr>
-                  <th>Total Price:</th>
+                  <th>Total:</th>
                   <th />
                   <th />
                   <th id="text-right">
@@ -93,7 +93,7 @@ class ShoppingCart extends Component {
                 </tr>
               </tfoot>
             </table>
-            {cart.items && (
+            {cart.items[0] && (
               <Link className="btn btn-success" to="/shipping">
                 Check Out
               </Link>

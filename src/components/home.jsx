@@ -25,7 +25,6 @@ class Home extends Component {
     if (!cart) return 0;
 
     const index = _.findIndex(cart.items, { _id: productId });
-    console.log(cart.items);
     if (index === -1) return 0;
 
     return cart.items[index].numberInCart;

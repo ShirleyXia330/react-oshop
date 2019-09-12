@@ -15,6 +15,7 @@ import ProtectedRoute from "./components/shared/protectedRoute";
 import ShoppingCart from "./components/shoppingCart";
 import Shipping from "./components/shipping";
 import Home from "./components/home";
+import Success from "./components/success";
 
 import { getUser } from "./services/authService";
 import {
@@ -109,6 +110,7 @@ class App extends Component {
               path="/shipping"
               render={() => <Shipping cart={cart} onClear={this.handleClear} />}
             />
+            <Route path="/success" component={Success} />
             <ProtectedRoute path="/products/:id" component={Product} />
             <Route path="/products" render={props => <Products {...props} />} />
             <Route path="/not-found" component={NotFound} />

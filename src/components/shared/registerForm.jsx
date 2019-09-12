@@ -88,6 +88,7 @@ class RegisterForm extends Component {
           <FormInput
             id="password"
             name="Password"
+            type="password"
             onChange={this.handleChange}
             value={this.state.account.password}
             error={this.state.errors.password}
