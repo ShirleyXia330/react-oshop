@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import FormInput from "./shared/formInput";
 import { saveOrder } from "../services/orderService";
+import { getUser } from "../services/authService";
 
 import { toast } from "react-toastify";
 import Joi from "joi-browser";
@@ -35,7 +36,8 @@ class ShippingForm extends Component {
     const { cart, onClear } = this.props;
     try {
       await saveOrder({
-        datePlaced: new Date().getTime(),
+        userId: getUser()._id,
+        datePlaced: new Date().getTime() - 7200000,
         shipping: this.state.shipping,
         items: cart.items,
         totalPrice: this.getTotalPrice(cart)

@@ -6,7 +6,7 @@ import ProductsTable from "./productsTable";
 import SearchInput from "./searchInput";
 import { getProducts, deleteProduct } from "../services/productService";
 import { getCategories } from "../services/categoryService";
-import { getUser } from "../services/authService";
+// import { getUser } from "../services/authService";
 
 import _ from "lodash";
 import { Link } from "react-router-dom";
@@ -138,15 +138,15 @@ class Products extends Component {
           />
         </div>
         <div className="col">
-          {getUser() && (
-            <Link
-              to="/products/new"
-              className="btn btn-success"
-              style={{ marginBottom: 20 }}
-            >
-              New Product
-            </Link>
-          )}
+          {/* {getUser() && ( */}
+          <Link
+            to="/products/new"
+            className="btn btn-success"
+            style={{ marginBottom: 20 }}
+          >
+            New Product
+          </Link>
+          {/* )} */}
           {this.conditionalRender(selectedProducts.length)}
           <SearchInput onChange={this.handleSearch} />
           <ProductsTable

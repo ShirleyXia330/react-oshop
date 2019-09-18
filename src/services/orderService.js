@@ -2,7 +2,7 @@ import http from "./httpService";
 
 const url = "http://localhost:4000/orders";
 
-export function getOrder(id) {
+export function getOrdersByUser(id) {
   return http.get(url + "/" + id);
 }
 

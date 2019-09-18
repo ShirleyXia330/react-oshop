@@ -38,11 +38,11 @@ class NavBar extends Component {
                     Home <span className="sr-only">(current)</span>
                   </Link>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link className="nav-link" to="/products">
                     Products
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link className="nav-link" to="/cart">
                     <i className="fa fa-cart-plus fa-lg" />
@@ -74,22 +74,25 @@ class NavBar extends Component {
                     </MDBDropdownToggle>
                     <MDBDropdownMenu basic>
                       <MDBDropdownItem id="dropdownItem">
-                        My Orders
+                        <Link to="/my/orders">My Orders</Link>
                       </MDBDropdownItem>
                       <MDBDropdownItem id="dropdownItem">
-                        Manage Orders
+                        <Link to="/admin/orders">Manage Orders</Link>
                       </MDBDropdownItem>
                       <MDBDropdownItem id="dropdownItem">
-                        Manage Products
+                        <Link to="/products">Manage Products</Link>
+                      </MDBDropdownItem>
+                      <MDBDropdownItem id="dropdownItem">
+                        <Link to="/logout">Logout</Link>
                       </MDBDropdownItem>
                     </MDBDropdownMenu>
                   </MDBDropdown>
-                  <Link
+                  {/* <Link
                     className="btn btn-outline-success mx-3 dropdownItem"
                     to="/logout"
                   >
                     Logout
-                  </Link>
+                  </Link> */}
                 </React.Fragment>
               )}
             </div>

@@ -14,4 +14,22 @@ router.route("/").post((req, res) => {
     });
 });
 
+router.route("/").get((req, res) => {
+  orderSchema.find((error, orders) => {
+    if (error) {
+      console.log(error);
+    } else {
+      res.json(orders);
+    }
+  });
+});
+
+router.route("/:id").get(async (req, res) => {
+  const orders = await orderSchema.find({ userId: req.params.id });
+  if (orders.length === 0)
+    return res.status(400).send("You don't have any order.");
+
+  res.json(orders);
+});
+
 module.exports = router;

@@ -16,6 +16,7 @@ import ShoppingCart from "./components/shoppingCart";
 import Shipping from "./components/shipping";
 import Home from "./components/home";
 import Success from "./components/success";
+import Orders from "./components/orders";
 
 import { getUser } from "./services/authService";
 import {
@@ -82,6 +83,7 @@ class App extends Component {
         <NavBar user={getUser()} cart={cart} />
         <div className="content" style={{ margin: "20px" }}>
           <Switch>
+            <ProtectedRoute path="/admin/orders" component={Orders} />
             <Route
               path="/cart"
               render={() => (
@@ -105,14 +107,15 @@ class App extends Component {
             />
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />
+            <ProtectedRoute path="/my/orders" component={Orders} />
             <Route path="/register" component={RegisterForm} />
-            <Route
+            <ProtectedRoute
               path="/shipping"
               render={() => <Shipping cart={cart} onClear={this.handleClear} />}
             />
             <Route path="/success" component={Success} />
             <ProtectedRoute path="/products/:id" component={Product} />
-            <Route path="/products" render={props => <Products {...props} />} />
+            <ProtectedRoute path="/products" component={Products} />
             <Route path="/not-found" component={NotFound} />
             <Redirect from="/" to="/home" exact />
             <Redirect to="/not-found" />

@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const orderSchema = new Schema(
   {
+    userId: { type: String, required: true },
     datePlaced: { type: Date, required: true },
     shipping: {
       name: { type: String, required: true },
@@ -21,7 +22,6 @@ const orderSchema = new Schema(
         price: { type: Number, required: true, min: 0 }
       }
     ],
-    // userId: { type: String, required: true },
     totalPrice: { type: Number, required: true, min: 0 }
   },
   {
