@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import moment from "moment";
 
 import { getOrders, getOrdersByUser } from "../services/orderService";
 import { getUser } from "../services/authService";
+import OrderModal from "./shared/orderModal";
 
 import { toast } from "react-toastify";
 
@@ -25,7 +27,6 @@ class Orders extends Component {
   }
 
   componentDidMount() {
-    // let orders;
     this.getOrders();
   }
 
@@ -52,9 +53,9 @@ class Orders extends Component {
               this.state.orders.map(o => (
                 <tr key={o._id}>
                   <td>{o.shipping.name}</td>
-                  <td>{o.datePlaced}</td>
+                  <td>{moment(o.datePlaced).format("MM/DD/YYYY")}</td>
                   <td>
-                    <button className="btn btn-success">View</button>
+                    <OrderModal order={o}></OrderModal>
                   </td>
                 </tr>
               ))}

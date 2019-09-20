@@ -27,16 +27,26 @@ class ShoppingCart extends Component {
       <React.Fragment>
         <h1>Shopping Cart</h1>
         {cart && (
-          <div className="row col-10">
-            <p>
+          <div
+            className="row col-10"
+            style={{
+              border: "1px solid rgba(0,0,0,.125)",
+              borderRadius: "5px"
+            }}
+          >
+            <p style={{ padding: "20px" }}>
               You have {this.getItemCount(cart)} items in your shopping cart.
               {cart.items[0] && (
-                <button className="btn btn-light btn-sm" onClick={onClear}>
+                <button
+                  className="btn btn-light btn-sm"
+                  style={{ position: "absolute", right: "20px" }}
+                  onClick={onClear}
+                >
                   Clear Shopping Cart
                 </button>
               )}
             </p>
-            <table className="table table-striped">
+            <table className="table table-striped" style={{ margin: "0px" }}>
               <thead>
                 <tr>
                   <th style={{ width: "200px" }} />
@@ -51,7 +61,7 @@ class ShoppingCart extends Component {
               <tbody>
                 {cart.items.map(item => (
                   <tr key={cart.id + item._id}>
-                    <td>
+                    <td style={{ verticalAlign: "middle" }}>
                       <div
                         className="background-image"
                         id="thumbnail"
@@ -60,8 +70,20 @@ class ShoppingCart extends Component {
                         }}
                       />
                     </td>
-                    <td style={{ textTransform: "capitalize" }}>{item.name}</td>
-                    <td>
+                    <td
+                      style={{
+                        textTransform: "capitalize",
+                        verticalAlign: "middle"
+                      }}
+                    >
+                      {item.name}
+                    </td>
+                    <td
+                      style={{
+                        verticalAlign: "middle",
+                        textTransform: "capitalize"
+                      }}
+                    >
                       <QuantityButton
                         product={item}
                         numberInCart={item.numberInCart}
@@ -69,7 +91,7 @@ class ShoppingCart extends Component {
                         onIncrement={onIncrement}
                       />
                     </td>
-                    <td id="text-right">
+                    <td id="text-right" style={{ verticalAlign: "middle" }}>
                       <Currency
                         quantity={item.numberInCart * item.price}
                         currency="AUD"
@@ -94,7 +116,11 @@ class ShoppingCart extends Component {
               </tfoot>
             </table>
             {cart.items[0] && (
-              <Link className="btn btn-success" to="/shipping">
+              <Link
+                className="btn btn-success"
+                to="/shipping"
+                style={{ margin: "6px" }}
+              >
                 Check Out
               </Link>
             )}
