@@ -51,7 +51,7 @@ class ProductsTable extends Component {
     const { products, onSort, selectedSort } = this.props;
 
     return (
-      <table className="table">
+      <table className="table table-striped">
         <TableHeader
           onSort={onSort}
           selectedSort={selectedSort}

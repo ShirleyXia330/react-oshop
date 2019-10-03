@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import NavBar from "./components/navbar";
+import MyNavbar from "./components/myNavbar";
 import Products from "./components/products";
 import Product from "./components/product";
 import NotFound from "./components/notFound";
@@ -80,8 +80,8 @@ class App extends Component {
         /> */}
 
         <ToastContainer />
-        <NavBar user={getUser()} cart={cart} />
-        <div className="content" style={{ margin: "20px" }}>
+        <MyNavbar user={getUser()} cart={cart} />
+        <div className="content" style={{ paddingTop: "80px" }}>
           <Switch>
             <ProtectedRoute path="/admin/orders" component={Orders} />
             <Route
