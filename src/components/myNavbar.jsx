@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, withRouter } from "react-router-dom";
 import _ from "lodash";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 class MyNavbar extends Component {
-  state = {};
+  state = {
+    dropdownItems: [
+      { to: "/my/orders", show: "My Orders" },
+      { to: "/admin/orders", show: "Manage Orders" },
+      { to: "/products", show: "Manage Products" }
+    ]
+  };
 
   getItemCount = cart => {
     if (!cart) return 0;
@@ -18,8 +24,10 @@ class MyNavbar extends Component {
 
     return (
       <React.Fragment>
-        <Navbar bg="light" expand="md" fixed="top">
-          <Navbar.Brand className="h1">OShop</Navbar.Brand>
+        <Navbar bg="light" fixed="top">
+          <Navbar.Brand className="h1">
+            <Link to="/">OShop</Link>
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
@@ -51,15 +59,19 @@ class MyNavbar extends Component {
                 title={`Hi, ${user.username}`}
                 id="basic-nav-dropdown"
               >
-                <NavLink to="/my/orders" className="nav-link">
-                  My Orders
-                </NavLink>
-                <NavLink to="/admin/orders" className="nav-link">
-                  Manage Orders
-                </NavLink>
-                <NavLink to="/products" className="nav-link">
-                  Manage Products
-                </NavLink>
+                {this.state.dropdownItems.map(i => (
+                  <NavLink
+                    to={i.to}
+                    key={i.to}
+                    className={
+                      this.props.location.pathname === i.to
+                        ? "nav-link list-group-item active"
+                        : "nav-link list-group-item"
+                    }
+                  >
+                    {i.show}
+                  </NavLink>
+                ))}
                 <NavDropdown.Divider />
                 <NavLink to="/logout" className="nav-link">
                   Logout
@@ -73,4 +85,4 @@ class MyNavbar extends Component {
   }
 }
 
-export default MyNavbar;
+export default withRouter(MyNavbar);

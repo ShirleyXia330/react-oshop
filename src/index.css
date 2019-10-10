@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  padding: 0;
+  padding-top: 80px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -14,7 +14,8 @@ code {
 }
 
 .content {
-  padding: 0 30px 0 30px;
+  padding: 0 15px;
+  margin: 0 5%;
 }
 
 .navbar {
@@ -34,45 +35,82 @@ code {
   background-size: cover;
 }
 
-#dropdownItem {
-  opacity: 0.6;
-  transition: 0.5s;
+span.navbar-brand > a {
+  color: black;
+  transition: 0.3s;
 }
-
-#dropdownItem:hover {
-  color: white;
-  background-color: rgb(75, 181, 67);
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  opacity: 1;
-}
-
-#dropdownItem:active {
-  outline: 0;
+span.navbar-brand > a:hover {
+  color: rgb(75, 181, 67);
+  text-decoration: none;
 }
 
 i#home {
   color: rgb(75, 181, 67);
+  transition: 0.3s;
+}
+i#home:hover {
+  color: black;
 }
 
 i#cart {
-  color: tomato;
+  color: rgb(253, 93, 44);
   margin-right: 3px;
   transition: 0.3s;
 }
 i#cart:hover {
-  color: orangered;
-  margin-right: 0px;
+  color: black;
+}
+
+a#basic-nav-dropdown {
+  color: rgba(0, 0, 0, 0.5);
+}
+a#basic-nav-dropdown:hover {
+  color: rgba(0, 0, 0, 0.7);
+}
+a#basic-nav-dropdown:focus {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.dropdown {
+  left: -60px;
+}
+
+.dropdown-menu > a {
+  color: black;
+  transition: 0.5s;
+  border: none;
+}
+.dropdown-menu > a.active {
+  background-color: rgb(75, 181, 67);
+  border-color: rgb(75, 181, 67);
+  color: white;
+}
+.dropdown-menu > a:hover {
+  background-color: #f0f0f0;
+  color: black;
+  /* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); */
+  text-decoration: none;
+}
+.dropdown-menu > a:focus {
+  background-color: rgb(75, 181, 67);
+  color: white;
+}
+
+ul.list-group {
+  position: fixed;
+  width: 20%;
 }
 
 ul li.list-group-item {
   cursor: pointer;
   transition: 0.5s;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
-
 ul li.list-group-item:hover {
   background-color: #f8f8f8;
 }
-
 ul li.list-group-item:active {
   background-color: rgb(75, 181, 67);
   color: white;
@@ -109,8 +147,8 @@ div.text-center {
 }
 
 @media (min-width: 768px) {
-  div.dropdown-menu {
-    right: 0;
+  div.dropdown-menu.show {
+    right: 1px;
     left: auto;
   }
 }

@@ -7,17 +7,18 @@ import { getCategories } from "../services/categoryService";
 import ProductCard from "./productCard";
 
 class Home extends Component {
-  state = { products: [], categories: [], selectedCategory: "All" };
+  state = {
+    products: [],
+    selectedProducts: [],
+    categories: [],
+    selectedCategory: "All"
+  };
 
   handleCategorySelect = category => {
-    if (this.state.selectedCategory === category)
-      this.setState({ selectedCategory: "All", selectedPage: 1 });
-    else
-      this.setState({
-        selectedCategory: category,
-        selectedPage: 1,
-        searchQuery: ""
-      });
+    const { selectedCategory } = this.state;
+    if (selectedCategory === category)
+      this.setState({ selectedCategory: "All" });
+    else this.setState({ selectedCategory: category });
   };
 
   getQuantity = productId => {
@@ -35,12 +36,16 @@ class Home extends Component {
     const { data } = await getCategories();
     const categories = [{ _id: "", name: "All" }, ...data];
 
-    this.setState({ products, categories });
+    this.setState({ products, categories, selectedProducts: products });
   }
 
   render() {
-    const { selectedCategory, categories } = this.state;
+    const { selectedCategory, categories, products } = this.state;
     const { onIncrement, onDecrement } = this.props;
+    const selectedProducts =
+      selectedCategory === "All"
+        ? products
+        : products.filter(p => p.category === selectedCategory);
 
     return (
       <div className="row">
@@ -53,7 +58,7 @@ class Home extends Component {
         </div>
         <div className="col-9">
           <div className="row">
-            {this.state.products.map(p => (
+            {selectedProducts.map(p => (
               <ProductCard
                 key={p._id}
                 product={p}

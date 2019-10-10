@@ -81,7 +81,7 @@ class App extends Component {
 
         <ToastContainer />
         <MyNavbar user={getUser()} cart={cart} />
-        <div className="content" style={{ paddingTop: "80px" }}>
+        <div className="content">
           <Switch>
             <ProtectedRoute path="/admin/orders" component={Orders} />
             <Route
