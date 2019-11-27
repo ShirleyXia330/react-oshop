@@ -110,7 +110,11 @@ class ShippingForm extends Component {
           value={shipping.city}
           error={errors.city}
         />
-        <button className="btn btn-primary" disabled={!this.submitAble()}>
+        <button
+          style={{ float: "right" }}
+          className="btn btn-primary"
+          disabled={!this.submitAble()}
+        >
           Place Order
         </button>
       </form>

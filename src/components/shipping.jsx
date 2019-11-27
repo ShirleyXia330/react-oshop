@@ -9,11 +9,11 @@ const Shipping = ({ cart, onClear }) => {
       <h1>Shipping</h1>
       {cart && (
         <div className="row">
-          <div className="col-6">
-            <ShippingForm cart={cart} onClear={onClear}></ShippingForm>
-          </div>
-          <div className="col-6">
+          <div className="col-md-6">
             <ShippingOrderSummary cart={cart}></ShippingOrderSummary>
+          </div>
+          <div className="col-md-6">
+            <ShippingForm cart={cart} onClear={onClear}></ShippingForm>
           </div>
         </div>
       )}

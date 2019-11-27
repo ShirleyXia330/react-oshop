@@ -31,7 +31,12 @@ const OrderModal = ({ order }) => {
               <tr>
                 <th style={{ width: "200px" }} />
                 <th>Product</th>
-                <th style={{ width: "200px", textAlign: "center" }}>
+                <th
+                  style={{
+                    textAlign: "center",
+                    width: "fit-content"
+                  }}
+                >
                   Quantity
                 </th>
                 <th id="text-right">Price</th>
@@ -84,7 +89,7 @@ const OrderModal = ({ order }) => {
               </tr>
               <tr>
                 <th>Shipping Address:</th>
-                <td colspan="3">{order.shipping.address}</td>
+                <td colSpan="3">{order.shipping.address}</td>
               </tr>
             </tfoot>
           </table>

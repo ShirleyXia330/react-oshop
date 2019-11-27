@@ -28,13 +28,6 @@ code {
   width: 200px;
 }
 
-#thumbnail {
-  width: 80px;
-  height: 80px;
-  border-radius: 100%;
-  background-size: cover;
-}
-
 span.navbar-brand > a {
   color: black;
   transition: 0.3s;
@@ -96,27 +89,27 @@ a#basic-nav-dropdown:focus {
   color: white;
 }
 
-ul.list-group {
+.col-3 > ul.list-group {
   position: fixed;
   width: 20%;
 }
 
-ul li.list-group-item {
+.col-3 > ul li.list-group-item {
   cursor: pointer;
   transition: 0.5s;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-ul li.list-group-item:hover {
+.col-3 > ul li.list-group-item:hover {
   background-color: #f8f8f8;
 }
-ul li.list-group-item:active {
+.col-3 > ul li.list-group-item:active {
   background-color: rgb(75, 181, 67);
   color: white;
 }
 
-ul li.list-group-item.active {
+.col-3 > ul li.list-group-item.active {
   background-color: rgb(75, 181, 67);
   border-color: rgb(75, 181, 67);
   color: white;
@@ -146,9 +139,40 @@ div.text-center {
   padding-top: 6px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 767.02px) {
   div.dropdown-menu.show {
     right: 1px;
     left: auto;
+  }
+
+  #thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    background-size: cover;
+  }
+}
+
+@media (max-width: 767.01px) {
+  #thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background-size: cover;
+  }
+
+  .hidden-list {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .content {
+    padding: 0 10px;
+    margin: 0 5px;
+  }
+
+  .col-3 > ul li.list-group-item {
+    padding: 20px 3px;
   }
 }

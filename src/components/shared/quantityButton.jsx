@@ -14,7 +14,9 @@ const QuantityButton = ({
       >
         -
       </button>
-      <div className="col text-center">{numberInCart} in cart</div>
+      <div className="col text-center">
+        {numberInCart} <span>in cart</span>
+      </div>
       <button
         className="btn btn-success col-2"
         onClick={() => onIncrement(product)}
